@@ -1,0 +1,3 @@
+<bin file="HGCalMappingTest.cc" name="HGCalMappingTest">
+  <use name="Geometry/HGCalMapping"/>
+</bin>
