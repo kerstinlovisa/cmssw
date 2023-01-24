@@ -12,8 +12,8 @@ HGCalCellLocator::HGCalCellLocator()
         file >> header >> header >> header >> header >> header >> header >> header;
         while (file >> index >> layer >> u >> v >> type >> iz >> trigsum)
         {
-            CellToLoc_[std::make_pair(index,type)] = std::make_pair(u,v);
-            LocToCell_[std::make_pair(u,v)] = std::make_pair(index,type);
+            CellToLoc_[std::make_tuple(type,index)] = std::make_tuple(type,u,v);
+            LocToCell_[std::make_tuple(type,u,v)] = std::make_tuple(type,index);
         }
     }
     else
@@ -38,7 +38,7 @@ HGCalCellLocator::HGCalCellLocator()
             v = atoi(arr[3].c_str());
             type = arr[4];
             std::tuple<int,int,int> moduleloc (layer,u,v);
-            std::pair<int,std::string> moduletype (layer, type);
+            std::tuple<int,std::string> moduletype (layer, type);
             ModLocToType_[moduleloc] = moduletype;
             TypeToModLoc_[moduletype] = moduleloc;
         }
@@ -52,53 +52,44 @@ HGCalCellLocator::HGCalCellLocator()
     file.close();
 }
 
-std::string HGCalCellLocator::getModuleType(int modulelayer, int modulering, int moduleiphi) const
+std::string HGCalCellLocator::getModuleType(int layer, int modulering, int moduleiphi) const
 {
-    std::tuple<int,int,int> moduleloc (modulelayer, modulering, moduleiphi);
+    std::tuple<int,int,int> moduleloc (layer, modulering, moduleiphi);
     std::string type;
-    std::tie(modulelayer, type) = ModLocToType_.find(moduleloc)->second;
-    return type;
-}
-std::string HGCalCellLocator::getCellType(int celllayer, int cellring, int celliphi) const
-{
-    std::pair<int,int> cellloc (cellring, celliphi);
-    int cellidx;
-    std::string type;
-    std::tie(cellidx, type) = LocToCell_.find(cellloc)->second;
+    std::tie(layer, type) = ModLocToType_.find(moduleloc)->second;
     return type;
 }
 
-std::tuple<int,int,int> HGCalCellLocator::getModuleLocation(int modulelayer, std::string type) const
+std::tuple<int,int,int> HGCalCellLocator::getModuleLocation(int layer, std::string type) const
 {
-    std::pair<int,std::string> moduletype (modulelayer, type);
+    std::tuple<int,std::string> moduletype (layer, type);
     std::tuple<int,int,int> moduleloc = TypeToModLoc_.find(moduletype)->second;
     return moduleloc;
 }
 
-std::pair<int,int> HGCalCellLocator::getCellLocation(int econderx, int halfrocch, int modulelayer, int modulering, int moduleiphi) const
+std::pair<int,int> HGCalCellLocator::getCellLocation(int econderx, int halfrocch, int layer, int modulering, int moduleiphi) const
 {
-    std::string type = getModuleType(modulelayer, modulering, moduleiphi);
-    std::pair<int,std::string> cell(halfrocch*2, type);
-    std::pair<int,int> loc = CellToLoc_.find(cell)->second;
-    return loc;
+    std::string type = getModuleType(layer, modulering, moduleiphi);
+    std::tuple<std::string,int> cell(type,halfrocch*2);
+    int cellring, celliphi;
+    std::tie(type,cellring,celliphi) = CellToLoc_.find(cell)->second;
+    return std::make_pair(cellring,celliphi);
 }
 
-std::pair<int,int> HGCalCellLocator::getCellLocation(const HGCalElectronicsId& id, int modulelayer, int modulering, int moduleiphi) const
+std::pair<int,int> HGCalCellLocator::getCellLocation(const HGCalElectronicsId& id, int layer, int modulering, int moduleiphi) const
 {
     int halfrocch = (int)id.halfrocChannel();
-    std::string type = getModuleType(modulelayer, modulering, moduleiphi);
-
-    std::pair<int,std::string> cell(halfrocch*2,type);
-    std::pair<int,int> loc = CellToLoc_.find(cell)->second;
-    return loc;
+    std::string type = getModuleType(layer, modulering, moduleiphi);
+    std::tuple<std::string,int> cell(type,halfrocch*2);
+    int cellring, celliphi;
+    std::tie(type,cellring,celliphi) = CellToLoc_.find(cell)->second;
+    return std::make_pair(cellring,celliphi);
 }
 
-float HGCalCellLocator::getHalfrocChannel(int celllayer, int cellring, int celliphi) const
+float HGCalCellLocator::getHalfrocChannel(std::string type, int cellring, int celliphi) const 
 {
-    std::pair<int,int> loc (cellring, celliphi);
-    int halfrocch;
-    std::string type;
-    std::tie(halfrocch, type) = LocToCell_.find(loc)->second;
-    return halfrocch/2;
+    std::tuple<std::string,int,int> cellloc (type, cellring, celliphi);
+    int rocch;
+    std::tie(type, rocch) = LocToCell_.find(cellloc)->second;
+    return (float)rocch/2;
 }
-

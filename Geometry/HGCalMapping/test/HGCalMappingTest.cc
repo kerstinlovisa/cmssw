@@ -32,11 +32,11 @@ void testCellLocator()
                 assert(modulering == ring);
 
                 std::tie(cellring,celliphi) = locator.getCellLocation(econderx, halfrocch, modulelayer, modulering, moduleiphi);
-                float halfrocch_ = locator.getHalfrocChannel(layer, cellring, celliphi);
+                float halfrocch_ = locator.getHalfrocChannel(type, cellring, celliphi);
                 assert((int)halfrocch_ == (int)halfrocch);
 
                 std::tie(cellring,celliphi) = locator.getCellLocation(eid, modulelayer, modulering, moduleiphi);
-                halfrocch_ = locator.getHalfrocChannel(layer, cellring, celliphi);
+                halfrocch_ = locator.getHalfrocChannel(type, cellring, celliphi);
                 assert((int)halfrocch_ == (int)eid.halfrocChannel());
             }
         }
