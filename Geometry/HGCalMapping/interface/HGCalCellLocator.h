@@ -2,6 +2,7 @@
 #define Geometry_HGCalMapping_HGCalCellLocator_H 1
 
 #include "DataFormats/HGCalDigi/interface/HGCalElectronicsId.h"
+#include "DataFormats/ForwardDetId/interface/HGCScintillatorDetId.h"
 
 #include <string>
 #include <iostream>
@@ -30,6 +31,12 @@ class HGCalCellLocator {
         std::pair<int,int> getCellLocation(const HGCalElectronicsId& id, int layer, int modulering, int moduleiphi) const;
 
         float getHalfrocChannel(std::string type, int cellring, int celliphi) const;
+
+        DetId getDetId(const HGCalElectronicsId& id, int z, int layer, int modulering, int moduleiphi) const;
+
+        // Get module location (layer, ring, iphi) from DetId
+        std::tuple<int,int,int> getModuleLocation(DetId& id) const;
+
     private:
         std::string channelfile_ = "src/Geometry/HGCalMapping/data/channels_sipmontile.hgcal.txt";
         std::string geometryfile_ = "src/Geometry/HGCalMapping/data/geometry_sipmontile.hgcal.txt";
@@ -40,6 +47,8 @@ class HGCalCellLocator {
         // (layer, module iring, module iphi) to (layer, type)
         std::map<std::tuple<int,int,int>,std::tuple<int,std::string> > ModLocToType_;
         std::map<std::tuple<int,std::string>,std::tuple<int,int,int> > TypeToModLoc_;
+
+        static const int HGCSciLayerOffset = 25;
 };
 
 #endif

@@ -1,5 +1,7 @@
 #include "Geometry/HGCalMapping/interface/HGCalCellLocator.h"
 
+#include "FWCore/Utilities/interface/Exception.h"
+
 HGCalCellLocator::HGCalCellLocator()
 {
     std::ifstream file;
@@ -92,4 +94,69 @@ float HGCalCellLocator::getHalfrocChannel(std::string type, int cellring, int ce
     int rocch;
     std::tie(type, rocch) = LocToCell_.find(cellloc)->second;
     return (float)rocch/2;
+}
+
+DetId HGCalCellLocator::getDetId(const HGCalElectronicsId& id, int z, int layer, int modulering, int moduleiphi) const
+{
+    // Temporary solution, should be found from the electronics id?
+    DetId::Detector det = DetId::Detector::HGCalHSc;
+    
+    if (det == DetId::Detector::HGCalHSc)
+    {
+        int halfrocch = (int)id.halfrocChannel();
+        std::string type = getModuleType(layer, modulering, moduleiphi);
+        std::tuple<std::string,int> cell(type,halfrocch*2);
+        int cellring, celliphi;
+        std::tie(type,cellring,celliphi) = CellToLoc_.find(cell)->second;
+
+        int idlayer = layer - HGCSciLayerOffset;
+        int idtype = ((idlayer <= 8) ? 0 : ((idlayer <= 17) ? 1 : 2));
+        int ring = ((z == 0) ? cellring : (-1)*cellring);
+        int iphi = moduleiphi*10 + celliphi;
+        int sipm = (idlayer <= 17) ? 0 : 1;
+
+        HGCScintillatorDetId detid(idtype, idlayer, ring, iphi, false, sipm);
+        return detid;
+    }
+    else
+    {
+        throw cms::Exception("InvalidDetId") << "Wrong HGCal DetId::Detector in HGCalCellLocator::getDetId.";
+    }
+}
+
+std::tuple<int,int,int> HGCalCellLocator::getModuleLocation(DetId& id) const
+{
+    DetId::Detector subdet = id.det();
+
+    if (subdet == DetId::Detector::HGCalHSc)
+    {
+        HGCScintillatorDetId detid(id); 
+
+        // int idtype = detid.type();
+        int layer = detid.layer() + HGCSciLayerOffset;
+        int cellring = detid.ring();
+        int modulering;
+        if (layer <= 37)
+        {
+            modulering = ((cellring <= 25) ? 0 : 1);
+        }
+        else if (layer <= 43)
+        {
+            modulering = ((cellring <= 17) ? 0 : ((cellring <= 25 ) ? 1 : ((cellring <= 33) ? 2 : 3)));
+        }
+        else
+        {
+            modulering = ((cellring <= 5) ? 0 : ((cellring <= 17 ) ? 1 : ((cellring <= 25) ? 2 : ((cellring <= 33) ? 3 : 4))));
+        }
+        // int celliphi = detid.iphi()%10;
+        // int moduleiphi = (detid.iphi()-celliphi)/10;
+        int moduleiphi = detid.iphi()/10;
+
+        return std::tuple(layer,modulering,moduleiphi);
+    }
+    else
+    {
+        throw cms::Exception("InvalidDetId") << "Wrong HGCal DetId::Detector in HGCalCellLocator::getModuleLocation.";
+   
+    }
 }
