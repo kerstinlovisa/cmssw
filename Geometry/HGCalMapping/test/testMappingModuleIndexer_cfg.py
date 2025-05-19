@@ -3,11 +3,11 @@ process = cms.Process("TEST")
 
 from FWCore.ParameterSet.VarParsing import VarParsing
 options = VarParsing('python')
-options.register('modules','Geometry/HGCalMapping/data/modulelocator_test0.txt',mytype=VarParsing.varType.string,
+options.register('modules','Geometry/HGCalMapping/data/ModuleMaps/modulelocator_test.txt',mytype=VarParsing.varType.string,
                  info="Path to module mapper. Absolute, or relative to CMSSW src directory")
 options.register('sicells','Geometry/HGCalMapping/data/CellMaps/WaferCellMapTraces.txt',mytype=VarParsing.varType.string,
                  info="Path to Si cell mapper. Absolute, or relative to CMSSW src directory")
-options.register('sipmcells','Geometry/HGCalMapping/data/channels_sipmontile_casettes.txt',mytype=VarParsing.varType.string,
+options.register('sipmcells','Geometry/HGCalMapping/data/CellMaps/channels_sipmontile.hgcal.txt',mytype=VarParsing.varType.string,
                  info="Path to SiPM-on-tile cell mapper. Absolute, or relative to CMSSW src directory")
 options.register('sitypecodeformat','(([MX])([LH])-([FTBLR5])).*',mytype=VarParsing.varType.string,
                  info="typecode format for Si modules regex")
@@ -32,7 +32,7 @@ process = customise_hgcalmapper(process,
                                 )
 
 #Geometry
-process.load('Configuration.Geometry.GeometryExtended2025Reco_cff')
+process.load('Configuration.Geometry.GeometryExtended2026D99Reco_cff')
 
 #tester
 process.tester = cms.EDAnalyzer('HGCalMappingESSourceTester')
