@@ -30,7 +30,9 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
     public:
       //
       HGCalMappingCellESProducer(const edm::ParameterSet& iConfig)
-          : ESProducer(iConfig), filelist_(iConfig.getParameter<std::vector<std::string> >("filelist")) {
+          : ESProducer(iConfig), 
+            filelist_(iConfig.getParameter<std::vector<std::string> >("filelist")),
+            sipmTypecodeFormat_(iConfig.getParameter<std::string>("sipmtypecodeformat")) {
         auto cc = setWhatProduced(this);
         cellIndexTkn_ = cc.consumes(iConfig.getParameter<edm::ESInputTag>("cellindexer"));
       }
@@ -41,6 +43,8 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
         desc.add<std::vector<std::string> >("filelist", std::vector<std::string>({}))
             ->setComment("list of files with the readout cells of each module");
         desc.add<edm::ESInputTag>("cellindexer", edm::ESInputTag(""))->setComment("Dense cell index tool");
+        desc.add<std::string>("sipmtypecodeformat", "TB-L.*-S.*")->setComment(
+            "typecode  format for SiPM-on-tile modules regex");
         descriptions.addWithDefaultLabel(desc);
       }
 
@@ -63,7 +67,7 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
             //identify special cases (Si vs SiPM, calib vs normal)
             std::string typecode = pmap.getAttr("Typecode", row);
             auto typeidx = cellIndexer.getEnumFromTypecode(typecode);
-            bool isSiPM = typecode.find("TM") != std::string::npos;
+            bool isSiPM = typecode.find(sipmTypecodeFormat_.substr(0,2)) != std::string::npos;
             int rocpin = pmap.getIntAttr("ROCpin", row);
             int celltype = pmap.getIntAttr("t", row);
             int i1(0), i2(0), sensorcell(0);
@@ -122,6 +126,7 @@ namespace ALPAKA_ACCELERATOR_NAMESPACE {
     private:
       edm::ESGetToken<HGCalMappingCellIndexer, HGCalElectronicsMappingRcd> cellIndexTkn_;
       const std::vector<std::string> filelist_;
+      std::string sipmTypecodeFormat_;
     };
 
   }  // namespace hgcal
