@@ -118,13 +118,13 @@ def add_displacedtauCHSTables(process, isMC):
     
     
     d_disTauTagVars = {
-        "disTauTag_score0":     ExtVar("disTauTag:score0"       , float, doc = "Score 0"),
-        "disTauTag_score1":     ExtVar("disTauTag:score1"       , float, doc = "Score 1"),
-        "dxy": ExtVar("jetImpactParameters:jetDxy", float, doc = "leadingPtPFCand_dxy which is within dR=0.4 and charged/hasTrackDetails"),
-        "dz": ExtVar("jetImpactParameters:jetDz", float, doc = "leadingPtPFCand_dz which is within dR=0.4 and charged/hasTrackDetails"),
-        "dxyerror": ExtVar("jetImpactParameters:jetDxyError", float, doc = "leadingPtPFCand_dxyerror which is within dR=0.4 and charged/hasTrackDetails"),
-        "dzerror": ExtVar("jetImpactParameters:jetDzError", float, doc = "leadingPtPFCand_dzerror which is within dR=0.4 and charged/hasTrackDetails"),
-        "charge": ExtVar("jetImpactParameters:jetCharge", float, doc = "leadingPtPFCand_charge which is within dR=0.4 and charged/hasTrackDetails"), 
+        "disTauTag_score0":     ExtVar("disTauTag:score0"       , float, doc = "Score 0", precision=8),
+        "disTauTag_score1":     ExtVar("disTauTag:score1"       , float, doc = "Score 1", precision=8),
+        "dxy": ExtVar("jetImpactParameters:jetDxy", float, doc = "leadingPtPFCand_dxy which is within dR=0.4 and charged/hasTrackDetails", precision=8),
+        "dz": ExtVar("jetImpactParameters:jetDz", float, doc = "leadingPtPFCand_dz which is within dR=0.4 and charged/hasTrackDetails", precision=8),
+        "dxyerror": ExtVar("jetImpactParameters:jetDxyError", float, doc = "leadingPtPFCand_dxyerror which is within dR=0.4 and charged/hasTrackDetails", precision=8),
+        "dzerror": ExtVar("jetImpactParameters:jetDzError", float, doc = "leadingPtPFCand_dzerror which is within dR=0.4 and charged/hasTrackDetails", precision=8),
+        "charge": ExtVar("jetImpactParameters:jetCharge", float, doc = "leadingPtPFCand_charge which is within dR=0.4 and charged/hasTrackDetails", precision=8), 
     }
 
     #if useCHSJets:

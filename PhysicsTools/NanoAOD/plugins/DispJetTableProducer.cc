@@ -402,30 +402,32 @@ public:
     auto dispJetElectronTab = std::make_unique<nanoaod::FlatTable>(nElectronsSel, "DispJetElectron", false, false);
     auto dispJetMuonTab = std::make_unique<nanoaod::FlatTable>(nMuonsSel, "DispJetMuon", false, false);
 
-    dispJetElectronTab->addColumn<int>("idx", el_idx, "");
-    dispJetElectronTab->addColumn<bool>("lIVF_match", el_lIVF_match, "");
+    int precision_ = 12;
+
+    dispJetElectronTab->addColumn<int>("idx", el_idx, "", precision_);
+    dispJetElectronTab->addColumn<bool>("lIVF_match", el_lIVF_match, "", precision_);
 
     auto dispJetElectronVtxTab =
         std::make_unique<nanoaod::FlatTable>(el_IVF_x.size(), "DispJetElectronVtx", false, false);
-    dispJetElectronVtxTab->addColumn<int>("IVF_df", el_IVF_df, "");
-    dispJetElectronVtxTab->addColumn<int>("IVF_ntracks", el_IVF_ntracks, "");
-    dispJetElectronVtxTab->addColumn<int>("IVF_elid", el_IVF_elid, "");
-    dispJetElectronVtxTab->addColumn<float>("IVF_x", el_IVF_x, "");
-    dispJetElectronVtxTab->addColumn<float>("IVF_y", el_IVF_y, "");
-    dispJetElectronVtxTab->addColumn<float>("IVF_z", el_IVF_z, "");
-    dispJetElectronVtxTab->addColumn<float>("IVF_cx", el_IVF_cx, "");
-    dispJetElectronVtxTab->addColumn<float>("IVF_cy", el_IVF_cy, "");
-    dispJetElectronVtxTab->addColumn<float>("IVF_cz", el_IVF_cz, "");
-    dispJetElectronVtxTab->addColumn<float>("IVF_chi2", el_IVF_chi2, "");
-    dispJetElectronVtxTab->addColumn<float>("IVF_pt", el_IVF_pt, "");
-    dispJetElectronVtxTab->addColumn<float>("IVF_eta", el_IVF_eta, "");
-    dispJetElectronVtxTab->addColumn<float>("IVF_phi", el_IVF_phi, "");
-    dispJetElectronVtxTab->addColumn<float>("IVF_E", el_IVF_E, "");
-    dispJetElectronVtxTab->addColumn<float>("IVF_mass", el_IVF_mass, "");
-    dispJetElectronVtxTab->addColumn<float>("IVF_signedIP2D", el_IVF_signedIP2D, "");
-    dispJetElectronVtxTab->addColumn<float>("IVF_signedIP2Dsig", el_IVF_signedIP2Dsig, "");
-    dispJetElectronVtxTab->addColumn<float>("IVF_signedIP3D", el_IVF_signedIP3D, "");
-    dispJetElectronVtxTab->addColumn<float>("IVF_signedIP3Dsig", el_IVF_signedIP3Dsig, "");
+    dispJetElectronVtxTab->addColumn<int>("IVF_df", el_IVF_df, "", precision_);
+    dispJetElectronVtxTab->addColumn<int>("IVF_ntracks", el_IVF_ntracks, "", precision_);
+    dispJetElectronVtxTab->addColumn<int>("IVF_elid", el_IVF_elid, "", precision_);
+    dispJetElectronVtxTab->addColumn<float>("IVF_x", el_IVF_x, "", precision_);
+    dispJetElectronVtxTab->addColumn<float>("IVF_y", el_IVF_y, "", precision_);
+    dispJetElectronVtxTab->addColumn<float>("IVF_z", el_IVF_z, "", precision_);
+    dispJetElectronVtxTab->addColumn<float>("IVF_cx", el_IVF_cx, "", precision_);
+    dispJetElectronVtxTab->addColumn<float>("IVF_cy", el_IVF_cy, "", precision_);
+    dispJetElectronVtxTab->addColumn<float>("IVF_cz", el_IVF_cz, "", precision_);
+    dispJetElectronVtxTab->addColumn<float>("IVF_chi2", el_IVF_chi2, "", precision_);
+    dispJetElectronVtxTab->addColumn<float>("IVF_pt", el_IVF_pt, "", precision_);
+    dispJetElectronVtxTab->addColumn<float>("IVF_eta", el_IVF_eta, "", precision_);
+    dispJetElectronVtxTab->addColumn<float>("IVF_phi", el_IVF_phi, "", precision_);
+    dispJetElectronVtxTab->addColumn<float>("IVF_E", el_IVF_E, "", precision_);
+    dispJetElectronVtxTab->addColumn<float>("IVF_mass", el_IVF_mass, "", precision_);
+    dispJetElectronVtxTab->addColumn<float>("IVF_signedIP2D", el_IVF_signedIP2D, "", precision_);
+    dispJetElectronVtxTab->addColumn<float>("IVF_signedIP2Dsig", el_IVF_signedIP2Dsig, "", precision_);
+    dispJetElectronVtxTab->addColumn<float>("IVF_signedIP3D", el_IVF_signedIP3D, "", precision_);
+    dispJetElectronVtxTab->addColumn<float>("IVF_signedIP3Dsig", el_IVF_signedIP3Dsig, "", precision_);
 
     int nTracksElectron = 0;
     for (unsigned int iv = 0; iv < el_IVF_ntracks.size(); iv++) {
@@ -433,62 +435,62 @@ public:
     }
     auto dispJetElectronTrkTab =
         std::make_unique<nanoaod::FlatTable>(nTracksElectron, "DispJetElectronTrk", false, false);
-    dispJetElectronTrkTab->addColumn<int>("IVF_trackcharge", el_IVF_trackcharge, "");
-    dispJetElectronTrkTab->addColumn<float>("IVF_trackpt", el_IVF_trackpt, "");
-    dispJetElectronTrkTab->addColumn<float>("IVF_tracketa", el_IVF_tracketa, "");
-    dispJetElectronTrkTab->addColumn<float>("IVF_trackphi", el_IVF_trackphi, "");
-    dispJetElectronTrkTab->addColumn<float>("IVF_trackE", el_IVF_trackE, "");
-    dispJetElectronTrkTab->addColumn<float>("IVF_trackdxy", el_IVF_trackdxy, "");
-    dispJetElectronTrkTab->addColumn<float>("IVF_trackdz", el_IVF_trackdz, "");
-    dispJetElectronTrkTab->addColumn<int>("IVF_trackelid", el_IVF_trackelid, "");
-    dispJetElectronTrkTab->addColumn<int>("IVF_trackvtxid", el_IVF_trackvtxid, "");
-    dispJetElectronTrkTab->addColumn<float>("IVF_tracksignedIP2D", el_IVF_tracksignedIP2D, "");
-    dispJetElectronTrkTab->addColumn<float>("IVF_tracksignedIP2Dsig", el_IVF_tracksignedIP2Dsig, "");
-    dispJetElectronTrkTab->addColumn<float>("IVF_tracksignedIP3D", el_IVF_tracksignedIP3D, "");
-    dispJetElectronTrkTab->addColumn<float>("IVF_tracksignedIP3Dsig", el_IVF_tracksignedIP3Dsig, "");
+    dispJetElectronTrkTab->addColumn<int>("IVF_trackcharge", el_IVF_trackcharge, "", precision_);
+    dispJetElectronTrkTab->addColumn<float>("IVF_trackpt", el_IVF_trackpt, "", precision_);
+    dispJetElectronTrkTab->addColumn<float>("IVF_tracketa", el_IVF_tracketa, "", precision_);
+    dispJetElectronTrkTab->addColumn<float>("IVF_trackphi", el_IVF_trackphi, "", precision_);
+    dispJetElectronTrkTab->addColumn<float>("IVF_trackE", el_IVF_trackE, "", precision_);
+    dispJetElectronTrkTab->addColumn<float>("IVF_trackdxy", el_IVF_trackdxy, "", precision_);
+    dispJetElectronTrkTab->addColumn<float>("IVF_trackdz", el_IVF_trackdz, "", precision_);
+    dispJetElectronTrkTab->addColumn<int>("IVF_trackelid", el_IVF_trackelid, "", precision_);
+    dispJetElectronTrkTab->addColumn<int>("IVF_trackvtxid", el_IVF_trackvtxid, "", precision_);
+    dispJetElectronTrkTab->addColumn<float>("IVF_tracksignedIP2D", el_IVF_tracksignedIP2D, "", precision_);
+    dispJetElectronTrkTab->addColumn<float>("IVF_tracksignedIP2Dsig", el_IVF_tracksignedIP2Dsig, "", precision_);
+    dispJetElectronTrkTab->addColumn<float>("IVF_tracksignedIP3D", el_IVF_tracksignedIP3D, "", precision_);
+    dispJetElectronTrkTab->addColumn<float>("IVF_tracksignedIP3Dsig", el_IVF_tracksignedIP3Dsig, "", precision_);
 
-    dispJetMuonTab->addColumn<int>("idx", mu_idx, "");
-    dispJetMuonTab->addColumn<bool>("lIVF_match", mu_lIVF_match, "");
+    dispJetMuonTab->addColumn<int>("idx", mu_idx, "", precision_);
+    dispJetMuonTab->addColumn<bool>("lIVF_match", mu_lIVF_match, "", precision_);
 
     auto dispJetMuonVtxTab = std::make_unique<nanoaod::FlatTable>(mu_IVF_x.size(), "DispJetMuonVtx", false, false);
-    dispJetMuonVtxTab->addColumn<int>("IVF_df", mu_IVF_df, "");
-    dispJetMuonVtxTab->addColumn<int>("IVF_ntracks", mu_IVF_ntracks, "");
-    dispJetMuonVtxTab->addColumn<int>("IVF_muid", mu_IVF_muid, "");
-    dispJetMuonVtxTab->addColumn<float>("IVF_x", mu_IVF_x, "");
-    dispJetMuonVtxTab->addColumn<float>("IVF_y", mu_IVF_y, "");
-    dispJetMuonVtxTab->addColumn<float>("IVF_z", mu_IVF_z, "");
-    dispJetMuonVtxTab->addColumn<float>("IVF_cx", mu_IVF_cx, "");
-    dispJetMuonVtxTab->addColumn<float>("IVF_cy", mu_IVF_cy, "");
-    dispJetMuonVtxTab->addColumn<float>("IVF_cz", mu_IVF_cz, "");
-    dispJetMuonVtxTab->addColumn<float>("IVF_chi2", mu_IVF_chi2, "");
-    dispJetMuonVtxTab->addColumn<float>("IVF_pt", mu_IVF_pt, "");
-    dispJetMuonVtxTab->addColumn<float>("IVF_eta", mu_IVF_eta, "");
-    dispJetMuonVtxTab->addColumn<float>("IVF_phi", mu_IVF_phi, "");
-    dispJetMuonVtxTab->addColumn<float>("IVF_E", mu_IVF_E, "");
-    dispJetMuonVtxTab->addColumn<float>("IVF_mass", mu_IVF_mass, "");
-    dispJetMuonVtxTab->addColumn<float>("IVF_signedIP2D", mu_IVF_signedIP2D, "");
-    dispJetMuonVtxTab->addColumn<float>("IVF_signedIP2Dsig", mu_IVF_signedIP2Dsig, "");
-    dispJetMuonVtxTab->addColumn<float>("IVF_signedIP3D", mu_IVF_signedIP3D, "");
-    dispJetMuonVtxTab->addColumn<float>("IVF_signedIP3Dsig", mu_IVF_signedIP3Dsig, "");
+    dispJetMuonVtxTab->addColumn<int>("IVF_df", mu_IVF_df, "", precision_);
+    dispJetMuonVtxTab->addColumn<int>("IVF_ntracks", mu_IVF_ntracks, "", precision_);
+    dispJetMuonVtxTab->addColumn<int>("IVF_muid", mu_IVF_muid, "", precision_);
+    dispJetMuonVtxTab->addColumn<float>("IVF_x", mu_IVF_x, "", precision_);
+    dispJetMuonVtxTab->addColumn<float>("IVF_y", mu_IVF_y, "", precision_);
+    dispJetMuonVtxTab->addColumn<float>("IVF_z", mu_IVF_z, "", precision_);
+    dispJetMuonVtxTab->addColumn<float>("IVF_cx", mu_IVF_cx, "", precision_);
+    dispJetMuonVtxTab->addColumn<float>("IVF_cy", mu_IVF_cy, "", precision_);
+    dispJetMuonVtxTab->addColumn<float>("IVF_cz", mu_IVF_cz, "", precision_);
+    dispJetMuonVtxTab->addColumn<float>("IVF_chi2", mu_IVF_chi2, "", precision_);
+    dispJetMuonVtxTab->addColumn<float>("IVF_pt", mu_IVF_pt, "", precision_);
+    dispJetMuonVtxTab->addColumn<float>("IVF_eta", mu_IVF_eta, "", precision_);
+    dispJetMuonVtxTab->addColumn<float>("IVF_phi", mu_IVF_phi, "", precision_);
+    dispJetMuonVtxTab->addColumn<float>("IVF_E", mu_IVF_E, "", precision_);
+    dispJetMuonVtxTab->addColumn<float>("IVF_mass", mu_IVF_mass, "", precision_);
+    dispJetMuonVtxTab->addColumn<float>("IVF_signedIP2D", mu_IVF_signedIP2D, "", precision_);
+    dispJetMuonVtxTab->addColumn<float>("IVF_signedIP2Dsig", mu_IVF_signedIP2Dsig, "", precision_);
+    dispJetMuonVtxTab->addColumn<float>("IVF_signedIP3D", mu_IVF_signedIP3D, "", precision_);
+    dispJetMuonVtxTab->addColumn<float>("IVF_signedIP3Dsig", mu_IVF_signedIP3Dsig, "", precision_);
 
     int nTracksMuon = 0;
     for (unsigned int iv = 0; iv < mu_IVF_ntracks.size(); iv++) {
       nTracksMuon += std::min(mu_IVF_ntracks[iv], ntrack_max);
     }
     auto dispJetMuonTrkTab = std::make_unique<nanoaod::FlatTable>(nTracksMuon, "DispJetMuonTrk", false, false);
-    dispJetMuonTrkTab->addColumn<int>("IVF_trackcharge", mu_IVF_trackcharge, "");
-    dispJetMuonTrkTab->addColumn<float>("IVF_trackpt", mu_IVF_trackpt, "");
-    dispJetMuonTrkTab->addColumn<float>("IVF_tracketa", mu_IVF_tracketa, "");
-    dispJetMuonTrkTab->addColumn<float>("IVF_trackphi", mu_IVF_trackphi, "");
-    dispJetMuonTrkTab->addColumn<float>("IVF_trackE", mu_IVF_trackE, "");
-    dispJetMuonTrkTab->addColumn<float>("IVF_trackdxy", mu_IVF_trackdxy, "");
-    dispJetMuonTrkTab->addColumn<float>("IVF_trackdz", mu_IVF_trackdz, "");
-    dispJetMuonTrkTab->addColumn<int>("IVF_trackmuid", mu_IVF_trackmuid, "");
-    dispJetMuonTrkTab->addColumn<int>("IVF_trackvtxid", mu_IVF_trackvtxid, "");
-    dispJetMuonTrkTab->addColumn<float>("IVF_tracksignedIP2D", mu_IVF_tracksignedIP2D, "");
-    dispJetMuonTrkTab->addColumn<float>("IVF_tracksignedIP2Dsig", mu_IVF_tracksignedIP2Dsig, "");
-    dispJetMuonTrkTab->addColumn<float>("IVF_tracksignedIP3D", mu_IVF_tracksignedIP3D, "");
-    dispJetMuonTrkTab->addColumn<float>("IVF_tracksignedIP3Dsig", mu_IVF_tracksignedIP3Dsig, "");
+    dispJetMuonTrkTab->addColumn<int>("IVF_trackcharge", mu_IVF_trackcharge, "", precision_);
+    dispJetMuonTrkTab->addColumn<float>("IVF_trackpt", mu_IVF_trackpt, "", precision_);
+    dispJetMuonTrkTab->addColumn<float>("IVF_tracketa", mu_IVF_tracketa, "", precision_);
+    dispJetMuonTrkTab->addColumn<float>("IVF_trackphi", mu_IVF_trackphi, "", precision_);
+    dispJetMuonTrkTab->addColumn<float>("IVF_trackE", mu_IVF_trackE, "", precision_);
+    dispJetMuonTrkTab->addColumn<float>("IVF_trackdxy", mu_IVF_trackdxy, "", precision_);
+    dispJetMuonTrkTab->addColumn<float>("IVF_trackdz", mu_IVF_trackdz, "", precision_);
+    dispJetMuonTrkTab->addColumn<int>("IVF_trackmuid", mu_IVF_trackmuid, "", precision_);
+    dispJetMuonTrkTab->addColumn<int>("IVF_trackvtxid", mu_IVF_trackvtxid, "", precision_);
+    dispJetMuonTrkTab->addColumn<float>("IVF_tracksignedIP2D", mu_IVF_tracksignedIP2D, "", precision_);
+    dispJetMuonTrkTab->addColumn<float>("IVF_tracksignedIP2Dsig", mu_IVF_tracksignedIP2Dsig, "", precision_);
+    dispJetMuonTrkTab->addColumn<float>("IVF_tracksignedIP3D", mu_IVF_tracksignedIP3D, "", precision_);
+    dispJetMuonTrkTab->addColumn<float>("IVF_tracksignedIP3Dsig", mu_IVF_tracksignedIP3Dsig, "", precision_);
 
     iEvent.put(std::move(dispJetElectronTab), "DispJetElectron");
     iEvent.put(std::move(dispJetElectronVtxTab), "DispJetElectronVtx");

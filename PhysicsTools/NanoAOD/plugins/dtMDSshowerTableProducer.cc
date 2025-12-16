@@ -303,34 +303,36 @@ void dtMDSshowerTableProducer::produce(edm::StreamID, edm::Event& iEvent, const 
   }
   auto dtRechitTab = std::make_unique<nanoaod::FlatTable>(dtRechitsX.size(), name_ + "Rechits", false, false);
 
-  dtRechitTab->addColumn<float>("X", dtRechitsX, "dt rechit X");
-  dtRechitTab->addColumn<float>("Y", dtRechitsY, "dt rechit Y");
-  dtRechitTab->addColumn<float>("Z", dtRechitsZ, "dt rechit Z");
-  dtRechitTab->addColumn<float>("Phi", dtRechitsPhi, "dt rechit Phi");
-  dtRechitTab->addColumn<float>("Eta", dtRechitsEta, "dt rechit Eta");
-  dtRechitTab->addColumn<int>("Layer", dtRechitsLayer, "dt rechit Layer");
-  dtRechitTab->addColumn<int>("SuperLayer", dtRechitsSuperLayer, "dt rechit SuperLayer");
-  dtRechitTab->addColumn<int>("Sector", dtRechitsSector, "dt rechit sector");
-  dtRechitTab->addColumn<int>("Station", dtRechitsStation, "dt rechit station");
-  dtRechitTab->addColumn<int>("Wheel", dtRechitsWheel, "dt rechit nstrips");
+  int precision_ = 12;
+
+  dtRechitTab->addColumn<float>("X", dtRechitsX, "dt rechit X", precision_);
+  dtRechitTab->addColumn<float>("Y", dtRechitsY, "dt rechit Y", precision_);
+  dtRechitTab->addColumn<float>("Z", dtRechitsZ, "dt rechit Z", precision_);
+  dtRechitTab->addColumn<float>("Phi", dtRechitsPhi, "dt rechit Phi", precision_);
+  dtRechitTab->addColumn<float>("Eta", dtRechitsEta, "dt rechit Eta", precision_);
+  dtRechitTab->addColumn<int>("Layer", dtRechitsLayer, "dt rechit Layer", precision_);
+  dtRechitTab->addColumn<int>("SuperLayer", dtRechitsSuperLayer, "dt rechit SuperLayer", precision_);
+  dtRechitTab->addColumn<int>("Sector", dtRechitsSector, "dt rechit sector", precision_);
+  dtRechitTab->addColumn<int>("Station", dtRechitsStation, "dt rechit station", precision_);
+  dtRechitTab->addColumn<int>("Wheel", dtRechitsWheel, "dt rechit nstrips", precision_);
 
   iEvent.put(std::move(dtRechitTab), name_ + "Rechits");
 
   auto clsTab = std::make_unique<nanoaod::FlatTable>(clsSize.size(), name_, false, false);
 
-  clsTab->addColumn<int>("size", clsSize, "cluster Size");
-  clsTab->addColumn<float>("x", clsX, "cluster X");
-  clsTab->addColumn<float>("y", clsY, "cluster Y");
-  clsTab->addColumn<float>("z", clsZ, "cluster Z");
-  clsTab->addColumn<float>("phi", clsPhi, "cluster Phi");
-  clsTab->addColumn<float>("eta", clsEta, "cluster Eta");
-  clsTab->addColumn<int>("bx", clsBX, "cluster BX");
-  clsTab->addColumn<int>("wheel", clsWheel, "cluster wheel");
-  clsTab->addColumn<int>("nStation", clsNstation, "cluster nStation");
-  clsTab->addColumn<int>("uniqueChamber", clsUniqueChamber, "cluster unique chambers");
-  clsTab->addColumn<float>("avgStation", clsAvgStation, "cluster AvgStation");
-  clsTab->addColumn<int>("nRPC", cls_nRPC, "cluster nRPC");
-  clsTab->addColumn<int>("nRB1hit", cls_nRB1hit, "cluster nRB1hit");
+  clsTab->addColumn<int>("size", clsSize, "cluster Size", precision_);
+  clsTab->addColumn<float>("x", clsX, "cluster X", precision_);
+  clsTab->addColumn<float>("y", clsY, "cluster Y", precision_);
+  clsTab->addColumn<float>("z", clsZ, "cluster Z", precision_);
+  clsTab->addColumn<float>("phi", clsPhi, "cluster Phi", precision_);
+  clsTab->addColumn<float>("eta", clsEta, "cluster Eta", precision_);
+  clsTab->addColumn<int>("bx", clsBX, "cluster BX", precision_);
+  clsTab->addColumn<int>("wheel", clsWheel, "cluster wheel", precision_);
+  clsTab->addColumn<int>("nStation", clsNstation, "cluster nStation", precision_);
+  clsTab->addColumn<int>("uniqueChamber", clsUniqueChamber, "cluster unique chambers", precision_);
+  clsTab->addColumn<float>("avgStation", clsAvgStation, "cluster AvgStation", precision_);
+  clsTab->addColumn<int>("nRPC", cls_nRPC, "cluster nRPC", precision_);
+  clsTab->addColumn<int>("nRB1hit", cls_nRB1hit, "cluster nRB1hit", precision_);
 
   iEvent.put(std::move(clsTab), name_);
 }

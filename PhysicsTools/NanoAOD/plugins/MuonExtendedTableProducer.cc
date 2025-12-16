@@ -220,56 +220,59 @@ void MuonExtendedTableProducer::produce(edm::StreamID, edm::Event& iEvent, const
   }
 
   auto tab = std::make_unique<nanoaod::FlatTable>(nMuons, name_, false, true);
-  tab->addColumn<float>("idx", idx, "EXOnanoAOD muon index");
 
-  tab->addColumn<float>("trkPt", trkPt, "");
-  tab->addColumn<float>("trkPtErr", trkPtErr, "");
+  int precision_ = 12;
 
-  tab->addColumn<float>("relIso0p4", relIso0p4, "");
-  tab->addColumn<float>("jetPtRatio", jetPtRatio, "");
-  tab->addColumn<float>("jetPtRel", jetPtRel, "");
-  tab->addColumn<int>("jetSelectedChargedMultiplicity", jetSelectedChargedMultiplicity, "");
-  tab->addColumn<int>("jetIdx", jetIdx, "");
-  tab->addColumn<int>("jetFatIdx", jetFatIdx, "");
-  tab->addColumn<int>("jetSubIdx", jetSubIdx, "");
+  tab->addColumn<float>("idx", idx, "EXOnanoAOD muon index", precision_);
 
-  tab->addColumn<float>("innerTrackValidFraction", innerTrackValidFraction, "");
-  tab->addColumn<float>("globalTrackNormalizedChi2", globalTrackNormalizedChi2, "");
-  tab->addColumn<float>("CQChi2Position", CQChi2Position, "");
-  tab->addColumn<float>("CQTrackKink", CQTrackKink, "");
-  tab->addColumn<int>("numberOfMatchedStation", numberOfMatchedStation, "");
-  tab->addColumn<int>("numberOfValidPixelHits", numberOfValidPixelHits, "");
-  tab->addColumn<int>("numberOfValidTrackerHits", numberOfValidTrackerHits, "");
-  tab->addColumn<int>("numberInnerHitsMissing", numberInnerHitsMissing, "");
-  tab->addColumn<int>("trackerLayersWithMeasurement", trackerLayersWithMeasurement, "");
-  tab->addColumn<int>("numberInnerHits", numberInnerHits, "");
+  tab->addColumn<float>("trkPt", trkPt, "", precision_);
+  tab->addColumn<float>("trkPtErr", trkPtErr, "", precision_);
 
-  tab->addColumn<float>("dzPV", dzPV, "");
-  tab->addColumn<float>("dzPVErr", dzPVErr, "");
-  tab->addColumn<float>("dxyPVTraj", dxyPVTraj, "");
-  tab->addColumn<float>("dxyPVTrajErr", dxyPVTrajErr, "");
-  tab->addColumn<float>("dxyPVSigned", dxyPVSigned, "");
-  tab->addColumn<float>("dxyPVSignedErr", dxyPVSignedErr, "");
-  tab->addColumn<float>("ip3DPVSigned", ip3DPVSigned, "");
-  tab->addColumn<float>("ip3DPVSignedErr", ip3DPVSignedErr, "");
+  tab->addColumn<float>("relIso0p4", relIso0p4, "", precision_);
+  tab->addColumn<float>("jetPtRatio", jetPtRatio, "", precision_);
+  tab->addColumn<float>("jetPtRel", jetPtRel, "", precision_);
+  tab->addColumn<int>("jetSelectedChargedMultiplicity", jetSelectedChargedMultiplicity, "", precision_);
+  tab->addColumn<int>("jetIdx", jetIdx, "", precision_);
+  tab->addColumn<int>("jetFatIdx", jetFatIdx, "", precision_);
+  tab->addColumn<int>("jetSubIdx", jetSubIdx, "", precision_);
 
-  tab->addColumn<float>("trkNumPlanes", trkNumPlanes, "");
-  tab->addColumn<float>("trkNumHits", trkNumHits, "");
-  tab->addColumn<float>("trkNumDTHits", trkNumDTHits, "");
-  tab->addColumn<float>("trkNumCSCHits", trkNumCSCHits, "");
-  tab->addColumn<float>("normChi2", normChi2, "");
-  tab->addColumn<float>("trkNumPixelHits", trkNumPixelHits, "");
-  tab->addColumn<float>("trkNumTrkLayers", trkNumTrkLayers, "");
+  tab->addColumn<float>("innerTrackValidFraction", innerTrackValidFraction, "", precision_);
+  tab->addColumn<float>("globalTrackNormalizedChi2", globalTrackNormalizedChi2, "", precision_);
+  tab->addColumn<float>("CQChi2Position", CQChi2Position, "", precision_);
+  tab->addColumn<float>("CQTrackKink", CQTrackKink, "", precision_);
+  tab->addColumn<int>("numberOfMatchedStation", numberOfMatchedStation, "", precision_);
+  tab->addColumn<int>("numberOfValidPixelHits", numberOfValidPixelHits, "", precision_);
+  tab->addColumn<int>("numberOfValidTrackerHits", numberOfValidTrackerHits, "", precision_);
+  tab->addColumn<int>("numberInnerHitsMissing", numberInnerHitsMissing, "", precision_);
+  tab->addColumn<int>("trackerLayersWithMeasurement", trackerLayersWithMeasurement, "", precision_);
+  tab->addColumn<int>("numberInnerHits", numberInnerHits, "", precision_);
 
-  tab->addColumn<float>("outerEta", outerEta, "");
-  tab->addColumn<float>("outerPhi", outerPhi, "");
+  tab->addColumn<float>("dzPV", dzPV, "", precision_);
+  tab->addColumn<float>("dzPVErr", dzPVErr, "", precision_);
+  tab->addColumn<float>("dxyPVTraj", dxyPVTraj, "", precision_);
+  tab->addColumn<float>("dxyPVTrajErr", dxyPVTrajErr, "", precision_);
+  tab->addColumn<float>("dxyPVSigned", dxyPVSigned, "", precision_);
+  tab->addColumn<float>("dxyPVSignedErr", dxyPVSignedErr, "", precision_);
+  tab->addColumn<float>("ip3DPVSigned", ip3DPVSigned, "", precision_);
+  tab->addColumn<float>("ip3DPVSignedErr", ip3DPVSignedErr, "", precision_);
 
-  tab->addColumn<float>("innerVx", innerVx, "");
-  tab->addColumn<float>("innerVy", innerVy, "");
-  tab->addColumn<float>("innerVz", innerVz, "");
-  tab->addColumn<float>("innerPt", innerPt, "");
-  tab->addColumn<float>("innerEta", innerEta, "");
-  tab->addColumn<float>("innerPhi", innerPhi, "");
+  tab->addColumn<float>("trkNumPlanes", trkNumPlanes, "", precision_);
+  tab->addColumn<float>("trkNumHits", trkNumHits, "", precision_);
+  tab->addColumn<float>("trkNumDTHits", trkNumDTHits, "", precision_);
+  tab->addColumn<float>("trkNumCSCHits", trkNumCSCHits, "", precision_);
+  tab->addColumn<float>("normChi2", normChi2, "", precision_);
+  tab->addColumn<float>("trkNumPixelHits", trkNumPixelHits, "", precision_);
+  tab->addColumn<float>("trkNumTrkLayers", trkNumTrkLayers, "", precision_);
+
+  tab->addColumn<float>("outerEta", outerEta, "", precision_);
+  tab->addColumn<float>("outerPhi", outerPhi, "", precision_);
+
+  tab->addColumn<float>("innerVx", innerVx, "", precision_);
+  tab->addColumn<float>("innerVy", innerVy, "", precision_);
+  tab->addColumn<float>("innerVz", innerVz, "", precision_);
+  tab->addColumn<float>("innerPt", innerPt, "", precision_);
+  tab->addColumn<float>("innerEta", innerEta, "", precision_);
+  tab->addColumn<float>("innerPhi", innerPhi, "", precision_);
 
   iEvent.put(std::move(tab));
 }

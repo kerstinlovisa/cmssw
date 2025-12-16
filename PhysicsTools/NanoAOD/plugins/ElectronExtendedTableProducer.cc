@@ -156,34 +156,37 @@ void ElectronExtendedTableProducer::produce(edm::StreamID, edm::Event& iEvent, c
   }
 
   auto tab = std::make_unique<nanoaod::FlatTable>(nElectrons, name_, false, true);
-  tab->addColumn<float>("idx", idx, "LLPnanoAOD electron index");
+  
+  int precision_ = 12;
 
-  tab->addColumn<float>("dxy", dxy, "");
-  tab->addColumn<float>("dz", dz, "");
-  tab->addColumn<float>("IP3d", IP3d, "");
-  tab->addColumn<float>("IP3dSig", IP3dSig, "");
+  tab->addColumn<float>("idx", idx, "LLPnanoAOD electron index", precision_);
 
-  tab->addColumn<float>("relIso0p4", relIso0p4, "");
-  tab->addColumn<float>("jetPtRatio", jetPtRatio, "");
-  tab->addColumn<float>("jetPtRel", jetPtRel, "");
-  tab->addColumn<int>("jetSelectedChargedMultiplicity", jetSelectedChargedMultiplicity, "");
-  tab->addColumn<int>("jetIdx", jetIdx, "");
-  tab->addColumn<int>("jetFatIdx", jetFatIdx, "");
-  tab->addColumn<int>("jetSubIdx", jetSubIdx, "");
+  tab->addColumn<float>("dxy", dxy, "", precision_);
+  tab->addColumn<float>("dz", dz, "", precision_);
+  tab->addColumn<float>("IP3d", IP3d, "", precision_);
+  tab->addColumn<float>("IP3dSig", IP3dSig, "", precision_);
 
-  tab->addColumn<bool>("isEB", isEB, "");
-  tab->addColumn<bool>("isEE", isEE, "");
-  tab->addColumn<float>("superClusterOverP", superClusterOverP, "");
-  tab->addColumn<float>("ecalEnergy", ecalEnergy, "");
-  tab->addColumn<float>("dEtaInSeed", dEtaInSeed, "");
-  tab->addColumn<int>("numberInnerHitsMissing", numberInnerHitsMissing, "");
-  tab->addColumn<int>("numberOfValidPixelHits", numberOfValidPixelHits, "");
-  tab->addColumn<int>("numberOfValidTrackerHits", numberOfValidTrackerHits, "");
-  tab->addColumn<float>("sigmaIetaIeta", sigmaIetaIeta, "");
-  tab->addColumn<float>("deltaPhiSuperClusterTrack", deltaPhiSuperClusterTrack, "");
-  tab->addColumn<float>("deltaEtaSuperClusterTrack", deltaEtaSuperClusterTrack, "");
-  tab->addColumn<float>("eInvMinusPInv", eInvMinusPInv, "");
-  tab->addColumn<float>("hOverE", hOverE, "");
+  tab->addColumn<float>("relIso0p4", relIso0p4, "", precision_);
+  tab->addColumn<float>("jetPtRatio", jetPtRatio, "", precision_);
+  tab->addColumn<float>("jetPtRel", jetPtRel, "", precision_);
+  tab->addColumn<int>("jetSelectedChargedMultiplicity", jetSelectedChargedMultiplicity, "", precision_);
+  tab->addColumn<int>("jetIdx", jetIdx, "", precision_);
+  tab->addColumn<int>("jetFatIdx", jetFatIdx, "", precision_);
+  tab->addColumn<int>("jetSubIdx", jetSubIdx, "", precision_);
+
+  tab->addColumn<bool>("isEB", isEB, "", precision_);
+  tab->addColumn<bool>("isEE", isEE, "", precision_);
+  tab->addColumn<float>("superClusterOverP", superClusterOverP, "", precision_);
+  tab->addColumn<float>("ecalEnergy", ecalEnergy, "", precision_);
+  tab->addColumn<float>("dEtaInSeed", dEtaInSeed, "", precision_);
+  tab->addColumn<int>("numberInnerHitsMissing", numberInnerHitsMissing, "", precision_);
+  tab->addColumn<int>("numberOfValidPixelHits", numberOfValidPixelHits, "", precision_);
+  tab->addColumn<int>("numberOfValidTrackerHits", numberOfValidTrackerHits, "", precision_);
+  tab->addColumn<float>("sigmaIetaIeta", sigmaIetaIeta, "", precision_);
+  tab->addColumn<float>("deltaPhiSuperClusterTrack", deltaPhiSuperClusterTrack, "", precision_);
+  tab->addColumn<float>("deltaEtaSuperClusterTrack", deltaEtaSuperClusterTrack, "", precision_);
+  tab->addColumn<float>("eInvMinusPInv", eInvMinusPInv, "", precision_);
+  tab->addColumn<float>("hOverE", hOverE, "", precision_);
 
   iEvent.put(std::move(tab));
 }

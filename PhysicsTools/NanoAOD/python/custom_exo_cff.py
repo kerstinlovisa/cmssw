@@ -230,13 +230,13 @@ def add_muonExtendedTable(process):
 
 def update_genParticleTable(process):
 
-    process.genParticleTable.variables.vx = Var("vx",float, doc = "gen particle production vertex x coordinate (cm)", precision=8)
-    process.genParticleTable.variables.vy = Var("vy",float, doc = "gen particle production vertex y coordinate (cm)", precision=8)
-    process.genParticleTable.variables.vz = Var("vz",float, doc = "gen particle production vertex z coordinate (cm)", precision=8)
+    process.genParticleTable.variables.vx = Var("vx",float, doc = "gen particle production vertex x coordinate (cm)", precision=12)
+    process.genParticleTable.variables.vy = Var("vy",float, doc = "gen particle production vertex y coordinate (cm)", precision=12)
+    process.genParticleTable.variables.vz = Var("vz",float, doc = "gen particle production vertex z coordinate (cm)", precision=12)
 
-    process.genParticleTable.variables.px = Var("px",float, doc = "gen particle momentum x coordinate", precision=8)
-    process.genParticleTable.variables.py = Var("py",float, doc = "gen particle momentum y coordinate", precision=8)
-    process.genParticleTable.variables.pz = Var("pz",float, doc = "gen particle momentum z coordinate", precision=8)
+    process.genParticleTable.variables.px = Var("px",float, doc = "gen particle momentum x coordinate", precision=12)
+    process.genParticleTable.variables.py = Var("py",float, doc = "gen particle momentum y coordinate", precision=12)
+    process.genParticleTable.variables.pz = Var("pz",float, doc = "gen particle momentum z coordinate", precision=12)
 
     return process
 

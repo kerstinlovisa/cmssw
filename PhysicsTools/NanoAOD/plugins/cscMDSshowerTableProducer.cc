@@ -343,45 +343,47 @@ void cscMDSshowerTableProducer::produce(edm::StreamID, edm::Event& iEvent, const
   }
   auto cscRechitTab = std::make_unique<nanoaod::FlatTable>(cscRechitsX.size(), name_ + "Rechits", false, false);
 
-  cscRechitTab->addColumn<float>("X", cscRechitsX, "csc rechit X");
-  cscRechitTab->addColumn<float>("Y", cscRechitsY, "csc rechit Y");
-  cscRechitTab->addColumn<float>("Z", cscRechitsZ, "csc rechit Z");
-  cscRechitTab->addColumn<float>("Phi", cscRechitsPhi, "csc rechit Phi");
-  cscRechitTab->addColumn<float>("Eta", cscRechitsEta, "csc rechit Eta");
-  cscRechitTab->addColumn<float>("E", cscRechitsE, "csc rechit Energy deposited in layer");
-  cscRechitTab->addColumn<float>("Tpeak", cscRechitsTpeak, "csc rechit time from cathode");
-  cscRechitTab->addColumn<float>("Twire", cscRechitsTwire, "csc rechit time from anode");
-  cscRechitTab->addColumn<int>("Quality", cscRechitsQuality, "csc rechit quality");
-  cscRechitTab->addColumn<int>("Chamber", cscRechitsChamber, "csc rechit station-Ring");
-  cscRechitTab->addColumn<int>("IChamber", cscRechitsIChamber, "csc rechit chamber in ring");
-  cscRechitTab->addColumn<int>("Station", cscRechitsStation, "csc rechit station");
-  cscRechitTab->addColumn<int>("NStrips", cscRechitsNStrips, "csc rechit nstrips");
-  cscRechitTab->addColumn<int>("WGroupsBX", cscRechitsWGroupsBX, "csc rechit wire group BX");
-  cscRechitTab->addColumn<int>("HitWire", cscRechitsHitWire, "csc rechit hit wire");
-  cscRechitTab->addColumn<int>("NWireGroups", cscRechitsNWireGroups, "csc rechit n wire groups");
+  int precision_ = 12;
+
+  cscRechitTab->addColumn<float>("X", cscRechitsX, "csc rechit X", precision_);
+  cscRechitTab->addColumn<float>("Y", cscRechitsY, "csc rechit Y", precision_);
+  cscRechitTab->addColumn<float>("Z", cscRechitsZ, "csc rechit Z", precision_);
+  cscRechitTab->addColumn<float>("Phi", cscRechitsPhi, "csc rechit Phi", precision_);
+  cscRechitTab->addColumn<float>("Eta", cscRechitsEta, "csc rechit Eta", precision_);
+  cscRechitTab->addColumn<float>("E", cscRechitsE, "csc rechit Energy deposited in layer", precision_);
+  cscRechitTab->addColumn<float>("Tpeak", cscRechitsTpeak, "csc rechit time from cathode", precision_);
+  cscRechitTab->addColumn<float>("Twire", cscRechitsTwire, "csc rechit time from anode", precision_);
+  cscRechitTab->addColumn<int>("Quality", cscRechitsQuality, "csc rechit quality", precision_);
+  cscRechitTab->addColumn<int>("Chamber", cscRechitsChamber, "csc rechit station-Ring", precision_);
+  cscRechitTab->addColumn<int>("IChamber", cscRechitsIChamber, "csc rechit chamber in ring", precision_);
+  cscRechitTab->addColumn<int>("Station", cscRechitsStation, "csc rechit station", precision_);
+  cscRechitTab->addColumn<int>("NStrips", cscRechitsNStrips, "csc rechit nstrips", precision_);
+  cscRechitTab->addColumn<int>("WGroupsBX", cscRechitsWGroupsBX, "csc rechit wire group BX", precision_);
+  cscRechitTab->addColumn<int>("HitWire", cscRechitsHitWire, "csc rechit hit wire", precision_);
+  cscRechitTab->addColumn<int>("NWireGroups", cscRechitsNWireGroups, "csc rechit n wire groups", precision_);
 
   iEvent.put(std::move(cscRechitTab), name_ + "Rechits");
 
   auto clsTab = std::make_unique<nanoaod::FlatTable>(clsSize.size(), name_, false, false);
 
-  clsTab->addColumn<int>("size", clsSize, "cluster Size");
-  clsTab->addColumn<float>("x", clsX, "cluster X");
-  clsTab->addColumn<float>("y", clsY, "cluster Y");
-  clsTab->addColumn<float>("z", clsZ, "cluster Z");
-  clsTab->addColumn<float>("phi", clsPhi, "cluster Phi");
-  clsTab->addColumn<float>("eta", clsEta, "cluster Eta");
-  clsTab->addColumn<float>("time", clsTime, "cluster Time");
-  clsTab->addColumn<float>("timeSpread", clsTimeSpread, "cluster TimeSpread");
-  clsTab->addColumn<float>("timeWeighted", clsTimeWeighted, "cluster TimeWeighted");
-  clsTab->addColumn<float>("timeSpreadWeighted", clsTimeSpreadWeighted, "cluster TimeSpreadWeighted");
-  clsTab->addColumn<int>("nStation", clsNstation, "cluster nStation");
-  clsTab->addColumn<int>("uniqueChamber", clsUniqueChamber, "cluster unique chambers");
-  clsTab->addColumn<float>("avgStation", clsAvgStation, "cluster AvgStation");
-  clsTab->addColumn<int>("nME11", cls_nME11, "cluster nME11");
-  clsTab->addColumn<int>("nME12", cls_nME12, "cluster nME12");
-  clsTab->addColumn<int>("nMB1dtSeg", cls_nMB1dtSeg, "cluster nMB1dtSeg");
-  clsTab->addColumn<int>("nRE12hit", cls_nRE12hit, "cluster nRE12hit");
-  clsTab->addColumn<int>("nRB1hit", cls_nRB1hit, "cluster nRB1hit");
+  clsTab->addColumn<int>("size", clsSize, "cluster Size", precision_);
+  clsTab->addColumn<float>("x", clsX, "cluster X", precision_);
+  clsTab->addColumn<float>("y", clsY, "cluster Y", precision_);
+  clsTab->addColumn<float>("z", clsZ, "cluster Z", precision_);
+  clsTab->addColumn<float>("phi", clsPhi, "cluster Phi", precision_);
+  clsTab->addColumn<float>("eta", clsEta, "cluster Eta", precision_);
+  clsTab->addColumn<float>("time", clsTime, "cluster Time", precision_);
+  clsTab->addColumn<float>("timeSpread", clsTimeSpread, "cluster TimeSpread", precision_);
+  clsTab->addColumn<float>("timeWeighted", clsTimeWeighted, "cluster TimeWeighted", precision_);
+  clsTab->addColumn<float>("timeSpreadWeighted", clsTimeSpreadWeighted, "cluster TimeSpreadWeighted", precision_);
+  clsTab->addColumn<int>("nStation", clsNstation, "cluster nStation", precision_);
+  clsTab->addColumn<int>("uniqueChamber", clsUniqueChamber, "cluster unique chambers", precision_);
+  clsTab->addColumn<float>("avgStation", clsAvgStation, "cluster AvgStation", precision_);
+  clsTab->addColumn<int>("nME11", cls_nME11, "cluster nME11", precision_);
+  clsTab->addColumn<int>("nME12", cls_nME12, "cluster nME12", precision_);
+  clsTab->addColumn<int>("nMB1dtSeg", cls_nMB1dtSeg, "cluster nMB1dtSeg", precision_);
+  clsTab->addColumn<int>("nRE12hit", cls_nRE12hit, "cluster nRE12hit", precision_);
+  clsTab->addColumn<int>("nRB1hit", cls_nRB1hit, "cluster nRB1hit", precision_);
 
   iEvent.put(std::move(clsTab), name_);
 }
