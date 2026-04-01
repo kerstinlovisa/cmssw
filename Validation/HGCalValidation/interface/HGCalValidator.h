@@ -32,7 +32,8 @@
 #include "SimDataFormats/Associations/interface/LayerClusterToSimClusterAssociator.h"
 #include "SimDataFormats/Associations/interface/TICLAssociationMap.h"
 
-#include "CommonTools/RecoAlgos/interface/MultiVectorManager.h"
+#include "CommonTools/Utils/interface/StringCutObjectSelector.h"
+#include "DataFormats/Common/interface/MultiSpan.h"
 
 class PileupSummaryInfo;
 
@@ -67,7 +68,7 @@ public:
                                 std::vector<size_t>& selected_cPeff,
                                 unsigned int layers,
                                 std::unordered_map<DetId, const unsigned int> const&,
-                                MultiVectorManager<HGCRecHit> const& hits) const;
+                                edm::MultiSpan<HGCRecHit> const& hits) const;
 
   static void fillDescriptions(edm::ConfigurationDescriptions& descriptions);
 
@@ -118,6 +119,7 @@ protected:
   std::vector<edm::EDGetTokenT<TracksterToTracksterMap>> tracksterToTracksterAssociatorsTokens_;
   std::vector<edm::EDGetTokenT<TracksterToTracksterMap>> tracksterToTracksterByHitsAssociatorsTokens_;
   edm::EDGetTokenT<SimClusterToCaloParticleMap> scToCpMapToken_;
+  const StringCutObjectSelector<reco::Track> cutTk_;
 
 private:
   CaloParticleSelector cpSelector;
